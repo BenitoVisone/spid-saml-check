@@ -254,15 +254,15 @@ if (useHttps) app = https.createServer(httpsCredentials, app);
 
 app.listen(httpPort, () => {
   // import
-  if (fs.existsSync("../" + config_dir.DATA + "/" + config_dir.BOOTSTRAP)) {
-    Utility.readFiles("../" + config_dir.DATA + "/" + config_dir.BOOTSTRAP, function (filename, xml) {
+  if (fs.existsSync("/spid-saml-check/data/bootstrap")) {
+    Utility.readFiles("/spid-saml-check/data/bootstrap", function (filename, xml) {
       let metadataParser = new MetadataParser(xml);
 
       let entityID = metadataParser.getServiceProviderEntityId();
       if (entityID === null || entityID === '')
         throw new Error("EntityID non specificato");
 
-      fs.copyFileSync("../" + config_dir.DATA + "/" + config_dir.BOOTSTRAP + "/" + filename, getEntityDir(entityID) + "/sp-metadata.xml");
+      fs.copyFileSync("/spid-saml-check/data/bootstrap" + "/" + filename, getEntityDir(entityID) + "/sp-metadata.xml");
       database.setMetadata("validator", "000", entityID, "000", "main", entityID, xml);
     }, function (err) {
       console.error("Could not bootstrap initial SP metadata: ", err);

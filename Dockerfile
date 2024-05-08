@@ -56,7 +56,7 @@ WORKDIR /spid-saml-check
 ADD . /spid-saml-check
 
 # Create directory for tests data
-RUN mkdir /spid-saml-check/data
+# RUN mkdir /spid-saml-check/data
 
 ENV TZ=Europe/Rome
 ENV NODE_HTTPS_PORT=${EXPOSE_HTTPS_PORT}
